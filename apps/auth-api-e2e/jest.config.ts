@@ -1,5 +1,7 @@
+/* eslint-disable */
+
 export default {
-  displayName: 'nimo-coding-test-e2e',
+  displayName: 'auth-api-e2e',
   preset: '../../jest.preset.js',
   globalSetup: '<rootDir>/src/support/global-setup.ts',
   globalTeardown: '<rootDir>/src/support/global-teardown.ts',
@@ -14,5 +16,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/nimo-coding-test-e2e',
+  coverageDirectory: '../../coverage/auth-api-e2e',
 };

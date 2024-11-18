@@ -1,0 +1,38 @@
+provider:
+  name: aws
+  profile: default
+  runtime: nodejs14.x
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    reloadHandler: true
+  bundle:
+    tsConfig: ./tsconfig.app.json
+    ignorePackages:
+      - 'cache-manager'
+      - 'class-transformer'
+      - 'class-validator'
+      - '@nestjs/websockets/socket-module'
+      - '@nestjs/microservices/microservices-module'
+      - '@nestjs/microservices'
+  esbuild:
+    bundle: true
+    keepNames: true
+    sourcemap: true
+    exclude: ['node_modules']
+    external:
+      - 'cache-manager'
+      - 'class-transformer'
+      - 'class-validator'
+      - '@nestjs/websockets/socket-module'
+      - '@nestjs/microservices/microservices-module'
+      - '@nestjs/microservices'
+      - '@nestjs/common'
+      - '@nestjs/core'
+    watch:
+      pattern: ['src/**/*.ts']
+      ignore: [.build, 'dist', 'node_modules', '.serverless']

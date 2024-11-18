@@ -1,0 +1,19 @@
+{
+  "name": "auth-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/auth-api/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/auth-api",
+        "commands": [
+          "serverless offline"
+        ],
+        "parallel": false
+      }
+    }
+  }
+}

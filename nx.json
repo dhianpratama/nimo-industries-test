@@ -35,7 +35,12 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/nimo-coding-test-e2e/**/*"]
+      "exclude": [
+        "apps/nimo-coding-test-e2e/**/*",
+        "apps/auth-api-e2e/**/*",
+        "apps/test-api-e2e/**/*",
+        "apps/test-api-e2e/**/*"
+      ]
     }
   ]
 }

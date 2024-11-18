@@ -1,10 +1,10 @@
 export default {
-  displayName: 'nimo-coding-test',
+  displayName: 'auth-api',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/nimo-coding-test',
+  coverageDirectory: '../../coverage/apps/auth-api',
 };
