@@ -26,7 +26,7 @@ jobs:
         run: npm install
 
       - name: Run lint and test
-        run: nx run-many --targets=lint,test
+        run: ./node_modules/nx/bin/nx.js run-many -targets=lint,test
 
   # Job for deployment on push to staging branch
   deploy:
@@ -49,4 +49,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-2' # Update with your region
-        run: nx run-many --targets=deploy
+        run: ./node_modules/nx/bin/nx.js run-many --targets=deploy
