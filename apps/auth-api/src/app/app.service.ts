@@ -8,6 +8,6 @@ export class AppService {
   }
   
   getData(): { message: string } {
-    return { message: 'Hello API v2' };
+    return { message: 'Hello API' };
   }
 }
