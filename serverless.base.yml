@@ -1,6 +1,5 @@
 provider:
   name: aws
-  profile: default
   region: ap-southeast-2
   runtime: nodejs20.x
 
