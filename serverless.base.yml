@@ -1,7 +1,8 @@
 provider:
   name: aws
   profile: default
-  runtime: nodejs14.x
+  region: ap-southeast-2
+  runtime: nodejs20.x
 
 plugins:
   - serverless-esbuild
