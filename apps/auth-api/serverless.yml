@@ -8,7 +8,6 @@ custom:
     httpPort: 3000
     lambdaPort: 4000
     reloadHandler: ${file(../../serverless.base.yml):custom.serverless-offline.reloadHandler}
-  bundle: ${file(../../serverless.base.yml):custom.bundle}
   esbuild: ${file(../../serverless.base.yml):custom.esbuild}
 
 functions:
