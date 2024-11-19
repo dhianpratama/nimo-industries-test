@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
 
   constructor() {
-    console.log('AppService initialized');
+    console.log('AppService initialized ...');
   }
   
   getData(): { message: string } {
