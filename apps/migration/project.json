@@ -16,7 +16,7 @@
 				"main": "apps/migration/src/data-source.ts",
 				"tsConfig": "apps/migration/tsconfig.app.json",
 				"isolatedConfig": true,
-        "assets": ["apps/migration/src/assets"],
+        		"assets": ["apps/migration/src/assets"],
 				"webpackConfig": "apps/migration/webpack.config.js"
 			},
 			"configurations": {
@@ -24,7 +24,7 @@
 				"production": {}
 			}
 		},
-    "build-typeorm-config": {
+    	"build-typeorm-config": {
 			"executor": "@nx/webpack:webpack",
 			"outputs": ["{options.outputPath}"],
 			"options": {
@@ -48,7 +48,7 @@
 				"compiler" : "tsc"
 			}
 		},
-    "typeorm-generate-migrations": {
+    	"typeorm-generate-migrations": {
 			"executor": "nx:run-commands",
 			"outputs": ["{options.outputPath}"],
 			"options": {
