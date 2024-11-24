@@ -1,0 +1,88 @@
+{
+  "name": "migration",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/migration/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"target": "node",
+				"compiler": "tsc",
+				"outputPath": "dist/apps/migration",
+				"main": "apps/migration/src/data-source.ts",
+				"tsConfig": "apps/migration/tsconfig.app.json",
+				"isolatedConfig": true,
+        		"assets": ["apps/migration/src/assets"],
+				"webpackConfig": "apps/migration/webpack.config.js"
+			},
+			"configurations": {
+				"development": {},
+				"production": {}
+			}
+		},
+    	"build-typeorm-config": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/apps/typeorm-config",
+				"main": "apps/migration/src/data-source.ts",
+				"tsConfig": "apps/migration/tsconfig.app.json",
+				"webpackConfig": "apps/migration/webpack.config.js",
+				"target" : "node",
+				"compiler" : "tsc"
+			}
+		},
+		"build-seed-config": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/apps/typeorm-seed",
+				"main": "apps/migration/src/data-source.ts",
+				"tsConfig": "apps/migration/tsconfig.app.json",
+				"webpackConfig": "apps/migration/webpack.config.js",
+				"target" : "node",
+				"compiler" : "tsc"
+			}
+		},
+    	"typeorm-generate-migrations": {
+			"executor": "nx:run-commands",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"cwd": "apps/migration/src/migrations",
+				"commands": ["typeorm -d ../../../../dist/apps/typeorm-config/main.js migration:generate"]
+			},
+			"dependsOn": ["build-typeorm-config"]
+		},
+		"typeorm-run-migrations": {
+			"executor": "nx:run-commands",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"cwd": "apps/migration",
+				"commands": ["typeorm -d ../../dist/apps/typeorm-config/main.js migration:run"]
+			},
+			"dependsOn": ["build-typeorm-config"]
+		},
+		"typeorm-revert-migrations": {
+			"executor": "nx:run-commands",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"cwd": "apps/migration",
+				"commands": ["typeorm -d ../../dist/apps/typeorm-config/main.js migration:revert"]
+			},
+			"dependsOn": ["build-typeorm-config"]
+		},
+		"typeorm-create-migrations": {
+			"executor": "nx:run-commands",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"cwd": "apps/migration/src/migrations",
+				"commands": ["typeorm migration:create"]
+			},
+			"dependsOn": ["build-typeorm-config"]
+		},
+  }
+}

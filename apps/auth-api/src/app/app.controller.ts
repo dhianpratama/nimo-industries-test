@@ -5,8 +5,8 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(@Inject(forwardRef(() => AppService)) private readonly appService: AppService) {}
 
-  @Get('/test')
-  getData() {
-    return this.appService.getData();
-  }
+	@Get('/test')
+	test() {
+		return this.appService.getData();
+	}
 }

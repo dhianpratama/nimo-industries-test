@@ -39,7 +39,11 @@
         "apps/nimo-coding-test-e2e/**/*",
         "apps/auth-api-e2e/**/*",
         "apps/test-api-e2e/**/*",
-        "apps/test-api-e2e/**/*"
+        "apps/test-api-e2e/**/*",
+        "apps/crypto-api-e2e/**/*",
+        "apps/search-api-e2e/**/*",
+        "apps/notifier-e2e/**/*",
+        "apps/migration-e2e/**/*"
       ]
     }
   ]

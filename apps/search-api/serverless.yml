@@ -1,0 +1,22 @@
+service: search-api
+
+provider: ${file(../../serverless.base.yml):provider}
+plugins: ${file(../../serverless.base.yml):plugins}
+
+custom:
+  serverless-offline:
+    httpPort: 3004
+    lambdaPort: 4004
+    reloadHandler: ${file(../../serverless.base.yml):custom.serverless-offline.reloadHandler}
+  esbuild: ${file(../../serverless.base.yml):custom.esbuild}
+
+functions:
+  main:
+    handler: src/handler.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'

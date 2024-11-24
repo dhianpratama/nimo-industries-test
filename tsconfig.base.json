@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nimo/common": ["libs/common/src/index.ts"],
+      "@nimo/dto": ["libs/dto/src/index.ts"],
+      "@nimo/entities": ["libs/entities/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
