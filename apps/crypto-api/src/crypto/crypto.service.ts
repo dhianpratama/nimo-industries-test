@@ -48,6 +48,7 @@ export class CryptoService {
     historyEntity.userId = userId;
     historyEntity.searchQuery = `${ticker} to ${vsCurrency}`;
     historyEntity.status = SearchStatusEnum.SUBMITTED;
+    historyEntity.result = 0;
     const history = await this.searchHistoryRepository.save(historyEntity);
     return history.id;
   }
@@ -56,7 +57,7 @@ export class CryptoService {
     await this.searchHistoryRepository.update({ id: historyId }, data)
   }
 
-  public async getPrice(data: GetCryptoPriceRequestDto, user: any): Promise<GetCryptoPriceResponseDto> {
+  public async getPrice(data: GetCryptoPriceRequestDto, user: any){
     try {
       const historyId = await this.saveNewHistory(user.id, data.ticker, data.vsCurrency);
       const price = await this.getPriceFromCoinGecko(data.ticker, data.vsCurrency)
@@ -64,18 +65,13 @@ export class CryptoService {
       await this.sendEmailToSqs(user.email, {
         ticker: data.ticker,
         vsCurrency: data.vsCurrency,
-        price
+        price,
+        timestamp: new Date()
       })
       await this.updateHistory(historyId, { status: SearchStatusEnum.EMAIL_SENT_TO_QUEUE })
-
     } catch (err) {
-      console.log(err.data)
       Logger.error(err)
       throw err
     }
-    
-    Logger.log('after send sqs')
-
-    return GetCryptoPriceResponseDto.factory(data.ticker, '1000')
   }
 }

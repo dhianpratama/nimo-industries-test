@@ -10,10 +10,11 @@ import { AuthGuard } from '@nimo/common';
 export class AuthController {
   constructor(@Inject(forwardRef(() => CryptoService)) private readonly cryptoService: CryptoService) {}
 
-	@Get('/price/:ticker')
+	@Get('/price/:ticker/:vsCurrency')
 	@HttpCode(200)
 	async getPrice(@Param() data: GetCryptoPriceRequestDto, @Req() req): Promise<GetCryptoPriceResponseDto> {
-		const user = req['admin']?.id as any;
-		return this.cryptoService.getPrice(data, user)
+		const user = req['user'];
+		await this.cryptoService.getPrice(data, user)
+		return GetCryptoPriceResponseDto.factory(data.ticker)
 	}
 }

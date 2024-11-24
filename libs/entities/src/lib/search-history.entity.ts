@@ -29,7 +29,7 @@ export class SearchHistoryEntity {
     @Column({ type: 'float' })
     result?: number;
 
-	@Column({ name: 'status', nullable: true})
+	@Column({ name: 'status', type: 'varchar', nullable: true})
 	status!: string;
 
 	@CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })

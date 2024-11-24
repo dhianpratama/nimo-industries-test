@@ -14,15 +14,11 @@ export class GetCryptoPriceRequestDto {
 
 export class GetCryptoPriceResponseDto {
     @IsString()
-    ticker!: string; 
+    message!: string
 
-	@IsString()
-	price!: string;
-
-    static factory(ticker: string, price: string): GetCryptoPriceResponseDto {
+    static factory(ticker: string): GetCryptoPriceResponseDto {
 		const response = new GetCryptoPriceResponseDto();
-		response.ticker = ticker;
-        response.price = price;
+		response.message = `${ticker.toUpperCase()} price will be sent to your email.`
 		return response;
 	}
 }
