@@ -20,7 +20,7 @@ export class CryptoService {
   private async getPriceFromCoinGecko(coinSymbol: CoinEnum, vsCurrency: CurrencyEnum = CurrencyEnum.AUD) {
     const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
       headers: {
-        'x-cg-demo-api-key': 'CG-HLwYsSfo3rJfWcfQFA718QFL'
+        'x-cg-demo-api-key': process.env["COINGECKO_API_KEY"]
       },
       params: {
         ids: CoinGeckoIdEnum[coinSymbol],
