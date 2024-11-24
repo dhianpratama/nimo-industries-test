@@ -9,6 +9,7 @@ import {
 	UpdateDateColumn
 } from 'typeorm';
 import { UserEntity } from './user.entity';
+import { SearchStatusEnum } from '@nimo/common';
 
 @Entity({ name: 'search_histories' })
 export class SearchHistoryEntity {
@@ -25,8 +26,11 @@ export class SearchHistoryEntity {
     @Column({ type: 'varchar' })
     searchQuery?: string;
 
-    @Column({ type: 'varchar' })
-    result?: string;
+    @Column({ type: 'float' })
+    result?: number;
+
+	@Column({ name: 'status', nullable: true})
+	status!: string;
 
 	@CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
 	createdAt!: Date;

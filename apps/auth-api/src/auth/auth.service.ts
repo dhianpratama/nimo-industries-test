@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PasswordHelper } from '@nimo/common';
-import { CreateUserRequestDto, CreateUserResponseDto, LoginRequestDto, LoginResponseDto } from '@nimo/dto';
+import { LoginRequestDto, LoginResponseDto } from '@nimo/dto';
 import { UserEntity } from '@nimo/entities';
 import { Repository } from 'typeorm/repository/Repository';
 
