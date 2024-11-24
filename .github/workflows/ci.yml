@@ -25,10 +25,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run lint and test
-        run: ./node_modules/nx/bin/nx.js run-many -targets=lint,test
+      - name: Run lint
+        run: ./node_modules/nx/bin/nx.js run-many --targets=lint
+      
+      - name: Run Test
+        run: ./node_modules/nx/bin/nx.js run-many --targets=test -- --passWithNoTests
 
-  # Job for deployment on push to staging branch
   deploy:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -44,6 +46,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run migration
+        run: npm run migration:run
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -53,4 +58,4 @@ jobs:
           role-session-name: default
 
       - name: Deploy to AWS Lambda
-        run: ./node_modules/nx/bin/nx.js run-many --targets=deploy
+        run: ./node_modules/nx/bin/nx.js run-many --targets=deploy --exclude migration

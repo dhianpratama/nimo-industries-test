@@ -66,7 +66,8 @@ export class CryptoService {
         ticker: data.ticker,
         vsCurrency: data.vsCurrency,
         price,
-        timestamp: new Date()
+        timestamp: new Date(),
+        historyId
       })
       await this.updateHistory(historyId, { status: SearchStatusEnum.EMAIL_SENT_TO_QUEUE })
     } catch (err) {

@@ -9,7 +9,6 @@ import {
 	UpdateDateColumn
 } from 'typeorm';
 import { UserEntity } from './user.entity';
-import { SearchStatusEnum } from '@nimo/common';
 
 @Entity({ name: 'search_histories' })
 export class SearchHistoryEntity {

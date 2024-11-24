@@ -1,14 +1,17 @@
 import { Message } from '@aws-sdk/client-sqs';
 import { Injectable, Logger } from '@nestjs/common';
-import { SqsQueue } from '@nimo/common';
+import { SearchStatusEnum, SqsQueue } from '@nimo/common';
 import { SqsMessageHandler, SqsConsumerEventHandler } from '@ssut/nestjs-sqs';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SearchHistoryEntity } from '@nimo/entities';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AppService {
   private sesClient;
 
-  constructor() {
+  constructor(@InjectRepository(SearchHistoryEntity) private searchHistoryRepository: Repository<SearchHistoryEntity>,) {
     this.sesClient = new SESClient({
       credentials: {
         accessKeyId: process.env["AWS_ACCESS_KEY_ID"],
@@ -47,8 +50,6 @@ export class AppService {
 
   @SqsMessageHandler(SqsQueue.Email, false)
   public async handleMessage(message: Message) {
-    Logger.log('received', message)
-
     const data = JSON.parse(message.Body);
 
     const sendEmailCommand = this.createSendEmailCommand(
@@ -76,16 +77,12 @@ export class AppService {
     );
 
     try {
-      return await this.sesClient.send(sendEmailCommand);
+      await this.sesClient.send(sendEmailCommand);
+      await this.searchHistoryRepository.update({ id: data.historyId }, { status: SearchStatusEnum.EMAIL_SENT })
     } catch (e) {
       console.error('Failed to send email.', e);
+      await this.searchHistoryRepository.update({ id: data.historyId }, { status: SearchStatusEnum.SENDING_EMAIL_FAILED })
       return e;
     }
-  }
-
-  @SqsConsumerEventHandler(SqsQueue.Email, 'processing_error')
-  public onProcessingError(error: Error, message: Message) {
-    Logger.log(error)
-    Logger.log(message)
   }
 }
